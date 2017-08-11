@@ -69,7 +69,7 @@ public class simulation {
 		try {
 
 			// ファイル書き出し用
-			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/Simulation.csv");
+			File csv = new File("C:/workspace/IRT_Simulation/result/Simulation.csv");
 			// 追記モード
 			// 文字コードの指定
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(csv), "UTF-8");
