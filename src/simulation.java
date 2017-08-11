@@ -187,9 +187,7 @@ public class simulation {
 				3.17E-4, 9.52E-5, 2.57E-5, 6.22E-6, 1.35E-6, 2.63E-7, 4.57E-8, 7.08E-9 };
 
 		double result; // 能力値を格納する変数
-		double logit1;
 		double ICC1;
-		double logit2;
 		double ICC2;
 
 		double Numerator[] = new double[Xm.length];// ベイズの分子
@@ -208,27 +206,21 @@ public class simulation {
 					switch (history[n][i][m]) {
 					case 0:
 						ICC1 = 1.0;
-						logit2 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][1]);
-						ICC2 = 1.0 / (1.0 + Math.exp(logit2));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][1])));
 						result *= ICC1 - ICC2;
 						break;
 					case 1:
-						logit1 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][1]);
-						ICC1 = 1.0 / (1.0 + Math.exp(logit1));
-						logit2 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][2]);
-						ICC2 = 1.0 / (1.0 + Math.exp(logit2));
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][1])));
+						ICC2 = 1.0 / (1.0 + Math.exp( -1.7 * discrimination[m] * (Xm[l] - difficulty[m][2])));
 						result *= ICC1 - ICC2;
 						break;
 					case 2:
-						logit1 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][2]);
-						ICC1 = 1.0 / (1.0 + Math.exp(logit1));
-						logit2 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][3]);
-						ICC2 = 1.0 / (1.0 + Math.exp(logit2));
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][2])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][3])));
 						result *= ICC1 - ICC2;
 						break;
 					case 3:
-						logit1 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][3]);
-						ICC1 = 1.0 / (1.0 + Math.exp(logit1));
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][3])));
 						result *= ICC1;
 						ICC2 = 0.0;
 					default:
@@ -239,20 +231,16 @@ public class simulation {
 					switch (history[n][i][m]) {
 					case 0:
 						ICC1 = 1.0;
-						logit2 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][1]);
-						ICC2 = 1.0 / (1.0 + Math.exp(logit2));
+						ICC2 = 1.0 / (1.0 + Math.exp(l-1.7 * discrimination[m] * (Xm[l] - difficulty[m][1])));
 						result *= ICC1 - ICC2;
 						break;
 					case 1:
-						logit1 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][1]);
-						ICC1 = 1.0 / (1.0 + Math.exp(logit1));
-						logit2 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][2]);
-						ICC2 = 1.0 / (1.0 + Math.exp(logit2));
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][1])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][2])));
 						result *= ICC1 - ICC2;
 						break;
 					case 2:
-						logit1 = -1.7 * discrimination[m] * (Xm[l] - difficulty[m][2]);
-						ICC1 = 1.0 / (1.0 + Math.exp(logit1));
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * discrimination[m] * (Xm[l] - difficulty[m][2])));
 						result *= ICC1;
 						ICC2 = 0.0;
 					default:
