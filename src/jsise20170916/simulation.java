@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /*
- * JSiSEに向けてのsimulationプログラム
+ * JSiSEに向けてのsimulationプログラム(20170916)
  */
 
 public class simulation {
