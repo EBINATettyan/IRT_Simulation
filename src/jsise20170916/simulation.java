@@ -1,4 +1,6 @@
 
+package jsise20170916;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -69,7 +71,7 @@ public class simulation {
 		try {
 
 			// ファイル書き出し用
-			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/Simulation.csv");
+			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/simulation_0916.csv");
 			// 追記モード
 			// 文字コードの指定
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(csv), "UTF-8");
