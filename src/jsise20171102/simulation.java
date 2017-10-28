@@ -15,7 +15,7 @@ import control.SelectQestionManager;
 import dao.AnswerLogDAO;
 
 /*
- * 適応型テストのシミュレーションプログラム
+ * JSiSEに向けてのシミュレーションプログラム(20171102 適応型テスト)
  */
 
 public class simulation {
@@ -46,7 +46,7 @@ public class simulation {
 		try {
 
 			// ファイル書き出し用
-			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/simulation_1102_ver2.csv");
+			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/simulation_1102.csv");
 			// 追記モード
 			// 文字コードの指定
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(csv), "UTF-8");
