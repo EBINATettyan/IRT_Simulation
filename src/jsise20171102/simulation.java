@@ -35,11 +35,11 @@ public class simulation {
 		 * 真の能力値を仮定
 		 */
 		ArrayList<Double> trueThetaList = new ArrayList<Double>();
-		trueThetaList.add(-2.0);
 		trueThetaList.add(-1.0);
+		trueThetaList.add(-0.5);
 		trueThetaList.add(0.0);
+		trueThetaList.add(0.5);
 		trueThetaList.add(1.0);
-		trueThetaList.add(2.0);
 
 		int section = 0;
 
@@ -60,7 +60,7 @@ public class simulation {
 			for (trueThetaListUser = 0; trueThetaListUser < trueThetaList.size(); trueThetaListUser++) {
 				bw.newLine();
 				bw.newLine();
-				for (user = 0; user < 100; user++) {
+				for (user = 0; user < 1000; user++) {
 					estimateTheta = 0.0;
 					for (int count = 1; count <= 30; count++) {
 
