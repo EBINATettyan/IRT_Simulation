@@ -55,7 +55,7 @@ public class simulation {
 			bw.newLine();
 
 			/*
-			 * for分で真の能力値ごとに100人分繰り返す
+			 * for分で真の能力値ごとに1000人分繰り返す
 			 */
 			for (trueThetaListUser = 0; trueThetaListUser < trueThetaList.size(); trueThetaListUser++) {
 				bw.newLine();
