@@ -36,17 +36,15 @@ public class simulation {
 		/*
 		 * 回答データを保持する．添字1が真の能力値の添字，添字2がユーザ，添字3が課題番号
 		 */
-		int history[][][] = new int[5][501][30];
+		int history[][][] = new int[5][51][30];
 
 		/*
-		 * 今回は2PLMで能力値推定を行うので、各項目、各カテゴリごとの項目パラメータを設定する
-		 * discriminationが識別力、difficultyが困難度
+		 * 今回は1PLMで能力値推定を行うので、各カテゴリごとの困難度パラメータを設定する
+		 * difficultyが困難度
 		 */
 
 		double difficulty[][] = {
-
 				// 今回は決め打ちでやってます。本当はちゃんとしたルーブリックでやりたい
-
 				{ -10, -2.34, -1.55, -0.23, 0.78, 2.01 }, { -10, -1.99, -1.23, -0.42, 0.65, 2.11 },
 				{ -10, -2.03, -1.76, -0.98, 1.23, 2.12 }, { -10, -2.22, -1.45, 0.09, 0.45, 1.98 },
 				{ -10, -2.34, -1.55, -0.23, 0.78, 2.01 }, { -10, -2.34, -1.55, -0.23, 0.78, 2.01 },
@@ -69,7 +67,7 @@ public class simulation {
 		try {
 
 			// ファイル書き出し用
-			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/simulation_jset_0930.csv");
+			File csv = new File("C:/Users/J14-8002/pleiades/workspace/IRT_Simulation/result/simulation_jset_20180930.csv");
 			// 追記モード
 			// 文字コードの指定
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(csv), "UTF-8");
@@ -81,7 +79,7 @@ public class simulation {
 			 * 真の能力値(θ= -2.0~2.0をそれぞれ)それぞれ100人分繰り返す
 			 */
 			for (n = 0; n < trueThetaList.size(); n++) {
-				for (i = 0; i < 100; i++) {
+				for (i = 0; i < 10; i++) {
 					estimateTheta = 0.0; // 能力値の初期値(どうして0.0?)
 
 					/*
@@ -135,7 +133,7 @@ public class simulation {
 		// 今回は、1PLMで考えるので、Da == 1.7として考える
 		switch (maxDifficultyLevel[j]) {
 
-		case 5:// 最大困難度レベルが3のとき
+		case 5:// 最大困難度レベルが5のとき
 
 			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
 			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
@@ -158,7 +156,7 @@ public class simulation {
 			}
 			return res;
 
-		case 4:// 最大困難度レベルが3のとき
+		case 4:// 最大困難度レベルが4のとき
 
 			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
 			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
