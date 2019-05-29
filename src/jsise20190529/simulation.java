@@ -1,4 +1,4 @@
-package jsise20190325;
+package jsise20190529;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,51 +36,73 @@ public class simulation {
 		/*
 		 * 回答データを保持する．添字1が真の能力値の添字，添字2がユーザ，添字3が課題番号
 		 */
-		int history[][][] = new int[5][51][18];
+		int history[][][] = new int[5][101][16];
 
 		/*
 		 * 今回は1PLMで能力値推定を行うので、各カテゴリごとの困難度パラメータを設定する difficultyが困難度
 		 */
 		double difficulty[][] = {
 				// 今回は決め打ちでやってます。本当はちゃんとしたルーブリックでやりたい
-				{ -10, -3.34, -2.55, -1.33, 0.0, 0.51 }, { -10, -3.01, -2.23, -1.08, -0.65, 0.13 },
-				{ -10, -0.47, 0.00, 0.98, 1.96, 3.82 }, { -10, 1.00, 2.21, 2.43, 3.50, 4.00 },
-				{ -10, -2.76, -2.42, -1.48, 0.74, 1.42 }, { -10, -0.91, 0.85, 1.74, 2.52, 3.64 },
-				{ -10, -1.41, 0.0, 0.98, 1.93, 3.84 }, { -10, 0.83, 1.45, 1.99, 2.61, 3.48 },
-				{ -10, 0.81, 1.65, 2.74, 3.52, 3.64 }, { -10, -1.63, -0.43, 0.08, 1.65, 2.51 },
-				{ -10, 0.01, 0.76, 1.88, 2.73, 3.62 }, { -10, -2.74, -1.75, -1.21, 0.50, 1.78 },
-				{ -10, -2.41, -1.31, 0.98, 1.62, 2.64 }, { -10, 1.31, 2.45, 2.95, 3.31, 3.75 },
-				{ -10, 1.14, 2.35, 2.94, 3.32, 3.74 }, { -10, 1.00, 2.21, 2.43, 3.11, 3.47 },
-				{ -10, -0.74, 0.45, 1.53, 2.50, 3.78 }, { -10, -3.14, -1.45, 0.53, 1.50, 3.11 }
+				{ -10, -3.18840359, -0.46700756, -0.35172005, 0.07128325, 0.09015796, 0.25497587, 0.31526141,
+						0.45655353, 0.77400202, 1.28541061 },
+				{ -10, -2.2073661, -1.5347504, -0.7521774, -0.6547943, -0.3875014, -0.1332358, 0.174615, 0.3723284,
+						0.5462633, 1.8992623 },
+				{ -10, -1.93787226, -1.19657849, -1.02348806, -0.71235776, -0.51943301, 0.09957525, 0.45551712,
+						0.52445925, 0.85164371, 2.01207697 },
+				{ -10, -1.84475451, -1.54788856, -1.08340809, -0.90728485, -0.42830414, -0.41043915, -0.08418848,
+						0.19884044, 0.86473711, 1.25771032 },
+				{ -10, -2.53185699, -2.2309966, -0.87015639, 0.05272088, 0.11338488, 0.14241448, 0.18019654, 0.59923875,
+						0.67830729, 0.68176355 },
+				{ -10, -1.271318357, -0.392208679, -0.203331575, -0.190119629, 0.006221373, 0.993973365, 1.007840067,
+						1.010529478, 1.025318108, 1.760165642 },
+				{ -10, -1.16790181, -0.82244144, -0.46590054, -0.18941339, 0.07024953, 0.36658897, 0.56553184,
+						0.59872368, 0.6111494, 0.68737922 },
+				{ -10, -1.68004701, -0.90265164, -0.09639192, 0.33525053, 0.3771146, 0.38944964, 0.74783277, 1.19085384,
+						1.32798622, 1.81095739 },
+				{ -10, -1.45288935, -0.90620164, -0.72986191, -0.03067936, 0.1722348, 0.6005291, 0.997383, 1.12405816,
+						1.55927977, 2.15557381 },
+				{ -10, -0.9234472, -0.4708751, -0.326891, -0.2762511, 0.1104019, 0.5020791, 0.5101884, 0.58991,
+						1.127534, 1.2376989 },
+				{ -10, -3.18840359, -0.46700756, -0.35172005, 0.07128325, 0.09015796, 0.25497587, 0.31526141,
+						0.45655353, 0.77400202, 1.28541061 },
+				{ -10, -0.9234472, -0.4708751, -0.326891, -0.2762511, 0.1104019, 0.5020791, 0.5101884, 0.58991,
+						1.127534, 1.2376989 },
+				{ -10, 0.1234472, 0.6708751, 0.726891, 0.8762511, 1.1104019, 1.5020791, 1.5101884, 1.58991, 2.127534,
+						2.2376989 },
+				{ -10, 0.68004701, 0.10265164, 0.19639192, 1.33525053, 1.3771146, 1.38944964, 1.74783277, 2.19085384,
+						2.32798622, 2.81095739 },
+				{ -10, -1.1102, 0.3141, 0.54231, 0.645213, 1.14, 2.35, 2.94, 3.32, 3.4, 3.74 },
+				{ -10, 1.00, 1.10, 1.23, 2.21, 2.31, 2.43, 2.79, 3.01, 3.11, 3.47 }
 		};
 
 		// 項目の最高困難度レベル．添字は項目番号j
-		int maxDifficultyLevel[] = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
+		int maxDifficultyLevel[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 		try {
 
 			// ファイル書き出し用
 			File csv = new File(
-					"/Applications/Eclipse_4.8.0.app/Contents/workspace/IRT_Simulation/result/simulation_jsise_20190325.csv");
+					"/Applications/Eclipse_4.8.0.app/Contents/workspace/IRT_Simulation/result/simulation_jsise_20190529.csv");
 			// 追記モード
 			// 文字コードの指定
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(csv), "UTF-8");
 			BufferedWriter bw = new BufferedWriter(osw);
-			bw.write("id,trueTheta,user,category,estimateTheta");
+			//bw.write("id,trueTheta,user,category,estimateTheta");
+			bw.write("category");
 			bw.newLine();
 
 			/*
-			 * 真の能力値(θ= -2.0~2.0をそれぞれ)それぞれ100人分繰り返す
+			 * 真の能力値(θ= -2.0~2.0をそれぞれ)それぞれ20人分繰り返す
 			 */
 			for (n = 0; n < trueThetaList.size(); n++) {
-				for (i = 0; i < 10; i++) {
+				for (i = 0; i < 20; i++) {
 					estimateTheta = 0.0; // 能力値の初期値
 
 					// resをエクセルで行に出力したいので、配列に格納する ここでは、宣言
 					ArrayList<Integer> resList = new ArrayList<Integer>();
 					double postTrueTheta = trueThetaList.get(n);
 
-					for (j = 0; j < 18; j++) {
+					for (j = 0; j < 16; j++) {
 
 						if (j == 0) {
 							res = res(j, trueThetaList.get(n), difficulty, maxDifficultyLevel);
@@ -93,12 +115,13 @@ public class simulation {
 						/*
 						 * 能力値を求めるには、反応データ、項目の識別力、困難度、推定したθが必要
 						 */
-						estimateTheta = estimateTheta(i, n, j, difficulty, maxDifficultyLevel, history);
+						estimateTheta = estimateTheta(id, n, j, difficulty, maxDifficultyLevel, history);
 					}
-					bw.write(id + "," + trueThetaList.get(n) + "," + (n + 1) + "," + resList + "," + estimateTheta);
+					//bw.write(id + "," + trueThetaList.get(n) + "," + (n + 1) + "," + resList + "," + estimateTheta);
+					bw.write(resList + ",");
 					bw.newLine();
-					id++;
 				}
+				id++;
 			}
 			bw.close();
 		} catch (IOException ex) {
@@ -122,20 +145,40 @@ public class simulation {
 		double pj3;
 		double pj4;
 		double pj5;
+		double pj6;
+		double pj7;
+		double pj8;
+		double pj9;
+		double pj10;
 
 		// 最新の能力パラメータを用いて，どの項目と反応するか求める
 		// 今回は、1PLMで考えるので、Da == 1.7として考える
 		switch (maxDifficultyLevel[j]) {
 
-		case 5:// 最大困難度レベルが5のとき
+		case 10:// 最大困難度レベルが10のとき
 
 			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
 			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
 			pj3 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][3]))));
 			pj4 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][4]))));
 			pj5 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][5]))));
+			pj6 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][6]))));
+			pj7 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][7]))));
+			pj8 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][8]))));
+			pj9 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][9]))));
+			pj10 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][10]))));
 
-			if (random < pj5) {
+			if (random < pj10) {
+				res = 10;
+			} else if (pj10 <= random && random < pj9) {
+				res = 9;
+			} else if (pj9 <= random && random < pj8) {
+				res = 8;
+			} else if (pj8 <= random && random < pj7) {
+				res = 7;
+			} else if (pj7 <= random && random < pj6) {
+				res = 6;
+			} else if (pj6 <= random && random <= pj5) {
 				res = 5;
 			} else if (pj5 <= random && random < pj4) {
 				res = 4;
@@ -145,60 +188,10 @@ public class simulation {
 				res = 2;
 			} else if (pj2 <= random && random < pj1) {
 				res = 1;
-			} else if (pj1 <= random && random <= pj0) {
-				res = 1;
-			}
-			return res;
-
-		case 4:// 最大困難度レベルが4のとき
-
-			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
-			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
-			pj3 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][3]))));
-			pj4 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][4]))));
-
-			if (random < pj4) {
-				res = 4;
-			} else if (pj4 <= random && random < pj3) {
-				res = 3;
-			} else if (pj3 <= random && random < pj2) {
-				res = 2;
-			} else if (pj2 <= random && random <= pj1) {
-				res = 1;
-			} else if (pj1 <= random && random <= pj0) {
+			} else if (pj1 <= random && random < pj0) {
 				res = 0;
 			}
-			return res;
 
-		case 3:// 最大困難度レベルが3のとき
-
-			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
-			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
-			pj3 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][3]))));
-
-			if (random < pj3) {
-				res = 3;
-			} else if (pj3 <= random && random < pj2) {
-				res = 2;
-			} else if (pj2 <= random && random < pj1) {
-				res = 1;
-			} else if (pj1 <= random && random <= pj0) {
-				res = 0;
-			}
-			return res;
-
-		case 2:// 最大困難度レベルが2のとき
-
-			pj1 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][1]))));
-			pj2 = 1 / (1 + (Math.exp(-1.7 * (trueTheta - difficulty[j][2]))));
-
-			if (random < pj2) {
-				res = 2;
-			} else if (pj2 <= random && random < pj1) {
-				res = 1;
-			} else if (pj1 <= random) {
-				res = 0;
-			}
 			return res;
 		}
 		return res;
@@ -242,7 +235,7 @@ public class simulation {
 
 				switch (maxDifficultyLevel[m]) {
 
-				case 5:// 最大困難度レベルが3のとき
+				case 10:// 最大困難度レベルが10のとき
 					switch (history[n][i][m]) {
 					case 0:
 						ICC1 = 1.0;
@@ -268,6 +261,36 @@ public class simulation {
 						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][4])));
 						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][5])));
 						result *= ICC1 - ICC2;
+						break;
+					case 5:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][5])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][6])));
+						result *= ICC1 - ICC2;
+						break;
+					case 6:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][6])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][7])));
+						result *= ICC1 - ICC2;
+						break;
+					case 7:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][7])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][8])));
+						result *= ICC1 - ICC2;
+						break;
+					case 8:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][8])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][9])));
+						result *= ICC1 - ICC2;
+						break;
+					case 9:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][9])));
+						ICC2 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][10])));
+						result *= ICC1 - ICC2;
+						break;
+					case 10:
+						ICC1 = 1.0 / (1.0 + Math.exp(-1.7 * (Xm[l] - difficulty[m][10])));
+						result *= ICC1;
+						ICC2 = 0.0;
 						break;
 					default:
 						break;
